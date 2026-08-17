@@ -1,0 +1,39 @@
+{
+  "factuapp-android": [
+    "/screenshots/factuapp-android/1.png",
+    "/screenshots/factuapp-android/2.png",
+    "/screenshots/factuapp-android/3.png",
+    "/screenshots/factuapp-android/4.png",
+    "/screenshots/factuapp-android/5.png",
+    "/screenshots/factuapp-android/6.png",
+    "/screenshots/factuapp-android/7.png"
+  ],
+  "localizacion-odoo-erp": [
+    "/screenshots/localizacion-odoo-erp/1.png",
+    "/screenshots/localizacion-odoo-erp/2.png",
+    "/screenshots/localizacion-odoo-erp/3.png",
+    "/screenshots/localizacion-odoo-erp/4.png"
+  ],
+  "sistema-comercial": [
+    "/screenshots/sistema-comercial/1.png",
+    "/screenshots/sistema-comercial/2.png",
+    "/screenshots/sistema-comercial/3.png",
+    "/screenshots/sistema-comercial/4.png",
+    "/screenshots/sistema-comercial/5.png",
+    "/screenshots/sistema-comercial/6.png"
+  ],
+  "telemedicina": [
+    "/screenshots/telemedicina/1.png",
+    "/screenshots/telemedicina/2.png",
+    "/screenshots/telemedicina/3.png",
+    "/screenshots/telemedicina/4.png",
+    "/screenshots/telemedicina/5.png"
+  ],
+  "asistente-productividad-aurix": [
+    "/screenshots/asistente-productividad-aurix/1.png",
+    "/screenshots/asistente-productividad-aurix/2.png",
+    "/screenshots/asistente-productividad-aurix/3.png",
+    "/screenshots/asistente-productividad-aurix/4.png",
+    "/screenshots/asistente-productividad-aurix/5.png"
+  ]
+}
