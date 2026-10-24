@@ -1,30 +1,21 @@
 import { cn } from '@/lib/utils'
-
-export type SkillBadgeColor =
-  | 'indigo'
-  | 'cyan'
-  | 'violet'
-  | 'emerald'
-  | 'orange'
-  | 'gray'
-  | 'rose'
-  | 'amber'
+import type { SkillColor } from '@/data/skills'
 
 interface SkillBadgeProps {
   tech: string
-  color?: SkillBadgeColor
+  color?: SkillColor
   className?: string
 }
 
 const colorMap = {
-  indigo: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30',
-  cyan: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
-  violet: 'bg-violet-500/10 text-violet-400 border-violet-500/30',
-  emerald: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
-  orange: 'bg-orange-500/10 text-orange-400 border-orange-500/30',
-  gray: 'bg-gray-500/10 text-gray-400 border-gray-500/30',
-  rose: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
-  amber: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+  indigo: 'bg-(--glow-indigo)/10 text-(--glow-indigo-soft) border-(--glow-indigo)/30',
+  cyan: 'bg-(--glow-cyan)/10 text-(--glow-cyan-soft) border-(--glow-cyan)/30',
+  violet: 'bg-(--skill-violet)/10 text-(--skill-violet-text) border-(--skill-violet)/30',
+  emerald: 'bg-(--skill-emerald)/10 text-(--skill-emerald-text) border-(--skill-emerald)/30',
+  orange: 'bg-(--skill-orange)/10 text-(--skill-orange-text) border-(--skill-orange)/30',
+  gray: 'bg-(--skill-gray)/10 text-(--skill-gray-text) border-(--skill-gray)/30',
+  rose: 'bg-(--skill-rose)/10 text-(--skill-rose-text) border-(--skill-rose)/30',
+  amber: 'bg-(--skill-amber)/10 text-(--skill-amber-text) border-(--skill-amber)/30',
 } as const
 
 export function SkillBadge({ tech, color = 'indigo', className }: SkillBadgeProps) {

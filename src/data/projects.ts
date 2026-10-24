@@ -124,4 +124,46 @@ export const projects: Project[] = [
     status: 'En desarrollo',
     featured: false,
   },
+  {
+    id: 'distribucion-carnica-milagros',
+    title: 'Sistema de Gestión de Despachos & Cobranzas',
+    description:
+      'Sistema web local (Python + Streamlit + SQLite) para control logístico y comercial de distribución cárnica y avícola: despachos por sector y cliente, control de duplicados, liquidación de cobranzas con reportes PDF/Excel y auditoría integral.',
+    longDescription:
+      'Sistema integral de gestión comercial y logística diseñado específicamente para la distribución mayorista de productos cárnicos y avícolas en el mercado peruano. Desarrollado con una arquitectura local de alta confiabilidad en Python, Streamlit y SQLite (modo WAL), el sistema gestiona de extremo a extremo el ciclo de despacho nocturno por sector y cliente, calculando equivalencias de piezas de res y cerdo. Cuenta con un motor de prevención de duplicados, valorización de listas de precios históricas escalonadas por fecha de vigencia, control riguroso de antigüedad de deuda en soles (0-7, 8-15, 16-30 y >30 días) y liquidaciones periódicas automatizadas con exportación de documentos oficiales en PDF (FPDF2) y hojas de cobranza en Excel (OpenPyXL). Además, incorpora un pipeline de importación inteligente desde planillas Excel legacy, un servidor de sincronización LAN para la app de choferes y un sistema de respaldos automáticos con protección de contingencia.',
+    features: [
+      'Control logístico de despachos nocturnos por sector y cliente con cálculo de piezas y equivalencias de res.',
+      'Motor de liquidación y cobranzas periódicas con generación automática de documentos PDF y planillas Excel.',
+      'Seguimiento de saldos en soles, control de anticipos, excedentes a favor y análisis de antigüedad de deuda.',
+      'Sistema de importación y conciliación de archivos Excel históricos con resolución asistida de discrepancias.',
+      'Arquitectura resiliente con SQLite WAL, auditoría transaccional de cambios y respaldos automáticos en caliente.'
+    ],
+    image: '/screenshots/distribucion-carnica-milagros/thumb.png',
+    images: manifest['distribucion-carnica-milagros'] || [],
+    techs: ['Python', 'Streamlit', 'SQLite', 'Pandas', 'FPDF2', 'OpenPyXL', 'Ruff', 'Pytest'],
+    category: ['backend', 'frontend', 'erp'],
+    status: 'Completado',
+    featured: true,
+  },
+  {
+    id: 'carga-milagros-movil',
+    title: 'Carga Milagros (App Móvil para Choferes)',
+    description:
+      'Aplicación móvil Android offline-first para choferes y despachadores de campo: registro de cargas nocturnas sin conexión, exportación de reportes a PDF/imagen y sincronización bidireccional Wi-Fi con el servidor local.',
+    longDescription:
+      'Aplicación móvil Android nativa diseñada para choferes y personal de despacho en rutas de distribución logística nocturna. Construida bajo una arquitectura limpia (Clean Architecture) con Jetpack Compose y Material 3, la aplicación opera bajo un paradigma offline-first estricto, permitiendo registrar lotes de carga, piezas y clientes en zonas sin cobertura celular ni acceso a internet. Incorpora lógica de jornada laboral nocturna que cruza la medianoche, generación de reportes visuales instantáneos exportables a PDF o imagen bitmap para compartir por WhatsApp, y un protocolo de sincronización bidireccional en red de área local (LAN / Wi-Fi) mediante HTTP/JSON contra el sistema central en laptop mediante emparejamiento rápido por código QR, garantizando cero pérdida de datos en campo.',
+    features: [
+      'Arquitectura Offline-First con persistencia local en SQLite para operaciones continuas sin conectividad.',
+      'Interfaz moderna y reactiva construida al 100% con Jetpack Compose y Material 3.',
+      'Sincronización bidireccional automática sobre red local Wi-Fi vía HTTP/JSON con el sistema central.',
+      'Generación y exportación de reportes de carga en formato PDF y bitmap para compartir en campo.',
+      'Módulo de emparejamiento instantáneo con la estación base mediante escaneo y lectura de código QR.'
+    ],
+    image: '/screenshots/carga-milagros-movil/thumb.png',
+    images: manifest['carga-milagros-movil'] || [],
+    techs: ['Android', 'Kotlin', 'Jetpack Compose', 'Material 3', 'SQLite', 'Coroutines', 'HTTP Client', 'JUnit'],
+    category: ['android'],
+    status: 'Completado',
+    featured: true,
+  },
 ]

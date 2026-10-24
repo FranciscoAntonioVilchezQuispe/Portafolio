@@ -48,8 +48,8 @@ export function Projects() {
               className={cn(
                 'px-4 py-2 rounded-full text-sm font-medium transition-all border cursor-pointer',
                 activeFilter === filter.value
-                  ? 'bg-[--accent-primary] text-white border-[--accent-primary] shadow-md shadow-indigo-500/20'
-                  : 'border-[--border] text-[--text-muted] hover:border-[--accent-primary]/50 hover:text-[--text-primary] bg-[--bg-card]/30'
+                  ? 'bg-(--accent-primary) text-(--overlay-fg) border-(--accent-primary) shadow-md shadow-(color:--glow-indigo)/20'
+                  : 'border-(--border) text-(--text-muted) hover:border-(--accent-primary)/50 hover:text-(--text-primary) bg-(--bg-card)/30'
               )}
             >
               {filter.label}
@@ -90,7 +90,7 @@ export function Projects() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center text-[--text-muted] py-20"
+            className="text-center text-(--text-muted) py-20"
           >
             <p className="text-lg">No hay proyectos en esta categoría aún.</p>
           </motion.div>

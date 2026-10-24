@@ -31,15 +31,15 @@ export function Navbar() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 theme-transition',
         scrolled
-          ? 'bg-[--bg-surface]/80 backdrop-blur-md border-b border-[--border]'
+          ? 'bg-(--bg-surface)/80 backdrop-blur-md border-b border-(--border)'
           : 'bg-transparent'
       )}
     >
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="font-mono text-xl font-bold flex items-center gap-0 tracking-tight">
-          <span className="text-[--accent-primary]">{BRAND_NAME}</span>
-          <span className="text-[--accent-secondary]">.</span>
+          <span className="text-(--accent-primary)">{BRAND_NAME}</span>
+          <span className="text-(--accent-secondary)">.</span>
         </a>
 
         {/* Desktop nav */}
@@ -48,7 +48,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-[--text-muted] hover:text-[--text-primary] transition-colors text-sm font-medium"
+              className="text-(--text-muted) hover:text-(--text-primary) transition-colors text-sm font-medium"
             >
               {link.label}
             </a>
@@ -61,7 +61,7 @@ export function Navbar() {
           <ThemeToggle />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 rounded-lg hover:bg-[--bg-card] transition-colors text-[--text-muted] hover:text-[--text-primary]"
+            className="p-2 rounded-lg hover:bg-(--bg-card) transition-colors text-(--text-muted) hover:text-(--text-primary)"
             aria-label="Toggle menu"
           >
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -77,7 +77,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-[--bg-surface]/95 backdrop-blur-md border-b border-[--border] overflow-hidden"
+            className="md:hidden bg-(--bg-surface)/95 backdrop-blur-md border-b border-(--border) overflow-hidden"
           >
             <div className="px-4 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -85,7 +85,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-[--text-muted] hover:text-[--text-primary] transition-colors py-2 text-base font-medium border-b border-[--border]/50 last:border-0"
+                  className="text-(--text-muted) hover:text-(--text-primary) transition-colors py-2 text-base font-medium border-b border-(--border)/50 last:border-0"
                 >
                   {link.label}
                 </a>

@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# solo valores públicos (NEXT_PUBLIC_*): ya se ven en el sitio; los secretos siguen en .env.local
+!.env.production
 
 # vercel
 .vercel

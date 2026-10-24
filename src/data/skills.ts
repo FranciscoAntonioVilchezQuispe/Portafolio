@@ -28,7 +28,7 @@ export const skillCategories: SkillCategory[] = [
   {
     name: 'Frontend',
     color: 'violet',
-    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Streamlit'],
   },
   {
     name: 'Bases de Datos',

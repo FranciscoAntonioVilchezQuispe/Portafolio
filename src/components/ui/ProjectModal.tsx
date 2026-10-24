@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { X, ChevronLeft, ChevronRight, Check, ExternalLink, Code2 } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Check, ExternalLink, Code2, FileDown } from 'lucide-react'
 import { Github } from '@/components/ui/icons'
 import { SkillBadge } from '@/components/ui/SkillBadge'
 import { cn } from '@/lib/utils'
@@ -42,7 +42,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const currentSrc = imagesList[currentImgIndex] || project.image
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-(--overlay-bg)/75 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
       {/* Backdrop clickable para cerrar */}
       <div className="absolute inset-0 cursor-default" onClick={onClose} />
 
@@ -52,23 +52,23 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
-        className="relative w-full max-w-5xl glass-card rounded-2xl overflow-hidden flex flex-col lg:grid lg:grid-cols-12 shadow-2xl max-h-[90vh] lg:max-h-[85vh] z-10 border border-white/10"
+        className="relative w-full max-w-5xl glass-card rounded-2xl overflow-hidden flex flex-col lg:grid lg:grid-cols-12 lg:grid-rows-1 shadow-2xl max-h-[90vh] lg:h-[85vh] z-10 border border-(--overlay-fg)/10"
       >
         {/* Botón de cerrar flotante */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-30 p-2 rounded-full bg-black/40 hover:bg-black/60 text-[--text-muted] hover:text-[--text-primary] border border-white/10 hover:border-cyan-500/30 transition-all hover:rotate-90 cursor-pointer"
+          className="absolute top-4 right-4 z-30 p-2 rounded-full bg-(--overlay-bg)/40 hover:bg-(--overlay-bg)/60 text-(--text-muted) hover:text-(--text-primary) border border-(--overlay-fg)/10 hover:border-(--glow-cyan)/30 transition-all hover:rotate-90 cursor-pointer"
           aria-label="Cerrar modal"
         >
           <X size={20} />
         </button>
 
         {/* Sección Izquierda: Galería/Carrusel (Lg: 7 columnas) */}
-        <div className="lg:col-span-7 relative h-64 sm:h-96 lg:h-full bg-black/40 flex items-center justify-center overflow-hidden border-b lg:border-b-0 lg:border-r border-[--border]">
+        <div className="lg:col-span-7 relative h-64 sm:h-96 lg:h-full bg-(--overlay-bg)/40 flex items-center justify-center overflow-hidden border-b lg:border-b-0 lg:border-r border-(--border)">
           {isImgError ? (
-            <div className="w-full h-full bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 flex flex-col items-center justify-center gap-2">
-              <Code2 className="h-16 w-16 text-indigo-400/30 animate-pulse" />
-              <span className="text-xs text-[--text-muted]">Sin captura de pantalla disponible</span>
+            <div className="w-full h-full bg-gradient-to-br from-(--glow-indigo)/10 to-(--glow-cyan)/10 flex flex-col items-center justify-center gap-2">
+              <Code2 className="h-16 w-16 text-(--glow-indigo-soft)/30 animate-pulse" />
+              <span className="text-xs text-(--text-muted)">Sin captura de pantalla disponible</span>
             </div>
           ) : (
             <div className="relative w-full h-full flex items-center justify-center p-4">
@@ -99,14 +99,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             <>
               <button
                 onClick={handlePrev}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 hover:bg-cyan-500/20 text-white hover:text-[--accent-secondary] border border-white/5 hover:border-cyan-500/30 transition-all cursor-pointer z-20"
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-(--overlay-bg)/40 hover:bg-(--glow-cyan)/20 text-(--overlay-fg) hover:text-(--accent-secondary) border border-(--overlay-fg)/5 hover:border-(--glow-cyan)/30 transition-all cursor-pointer z-20"
                 aria-label="Imagen anterior"
               >
                 <ChevronLeft size={24} />
               </button>
               <button
                 onClick={handleNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 hover:bg-cyan-500/20 text-white hover:text-[--accent-secondary] border border-white/5 hover:border-cyan-500/30 transition-all cursor-pointer z-20"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-(--overlay-bg)/40 hover:bg-(--glow-cyan)/20 text-(--overlay-fg) hover:text-(--accent-secondary) border border-(--overlay-fg)/5 hover:border-(--glow-cyan)/30 transition-all cursor-pointer z-20"
                 aria-label="Siguiente imagen"
               >
                 <ChevronRight size={24} />
@@ -116,14 +116,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Indicadores de posición de imagen */}
           {imagesList.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20 bg-black/50 px-3 py-1.5 rounded-full backdrop-blur-xs border border-white/5">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20 bg-(--overlay-bg)/50 px-3 py-1.5 rounded-full backdrop-blur-xs border border-(--overlay-fg)/5">
               {imagesList.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentImgIndex(idx)}
                   className={cn(
                     "w-2 h-2 rounded-full transition-all cursor-pointer",
-                    currentImgIndex === idx ? "bg-cyan-400 scale-125" : "bg-white/30"
+                    currentImgIndex === idx ? "bg-(--glow-cyan-soft) scale-125" : "bg-(--overlay-fg)/30"
                   )}
                   aria-label={`Ver imagen ${idx + 1}`}
                 />
@@ -133,20 +133,20 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         </div>
 
         {/* Sección Derecha: Información detallada (Lg: 5 columnas) */}
-        <div className="lg:col-span-5 p-6 md:p-8 flex flex-col max-h-[50vh] lg:max-h-full overflow-y-auto bg-[--bg-surface]/25">
+        <div className="lg:col-span-5 p-6 md:p-8 flex flex-col max-h-[50vh] lg:max-h-full overflow-y-auto bg-(--bg-surface)/25">
           <div className="mb-4">
-            <span className="text-xs px-2.5 py-1 bg-cyan-500/10 text-[--accent-secondary] border border-cyan-500/20 rounded-md font-semibold tracking-wider uppercase">
+            <span className="text-xs px-2.5 py-1 bg-(--glow-cyan)/10 text-(--accent-secondary) border border-(--glow-cyan)/20 rounded-md font-semibold tracking-wider uppercase">
               {project.status}
             </span>
-            <h2 className="text-2xl md:text-3xl font-bold mt-3 text-[--text-primary] tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-bold mt-3 text-(--text-primary) tracking-tight">
               {project.title}
             </h2>
           </div>
 
           {/* Descripción Extendida */}
           <div className="mb-6 flex-1">
-            <h4 className="text-xs font-semibold text-[--text-muted] tracking-wider uppercase mb-2">Sobre el proyecto</h4>
-            <p className="text-[--text-muted] text-sm leading-relaxed font-light whitespace-pre-line">
+            <h4 className="text-xs font-semibold text-(--text-muted) tracking-wider uppercase mb-2">Sobre el proyecto</h4>
+            <p className="text-(--text-muted) text-sm leading-relaxed font-light whitespace-pre-line">
               {project.longDescription || project.description}
             </p>
           </div>
@@ -154,11 +154,11 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Características Clave (Features) */}
           {project.features && project.features.length > 0 && (
             <div className="mb-6">
-              <h4 className="text-xs font-semibold text-[--text-muted] tracking-wider uppercase mb-3">Funciones & Logros Clave</h4>
-              <ul className="space-y-2.5 text-xs text-[--text-muted] font-light">
+              <h4 className="text-xs font-semibold text-(--text-muted) tracking-wider uppercase mb-3">Funciones & Logros Clave</h4>
+              <ul className="space-y-2.5 text-xs text-(--text-muted) font-light">
                 {project.features.map((feature, i) => (
                   <li key={i} className="flex items-start gap-2.5">
-                    <span className="p-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[--accent-secondary] mt-0.5 shrink-0">
+                    <span className="p-0.5 rounded-full bg-(--glow-cyan)/10 border border-(--glow-cyan)/20 text-(--accent-secondary) mt-0.5 shrink-0">
                       <Check size={10} />
                     </span>
                     <span>{feature}</span>
@@ -170,7 +170,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Stack Tecnológico */}
           <div className="mb-8">
-            <h4 className="text-xs font-semibold text-[--text-muted] tracking-wider uppercase mb-3">Stack Tecnológico</h4>
+            <h4 className="text-xs font-semibold text-(--text-muted) tracking-wider uppercase mb-3">Stack Tecnológico</h4>
             <div className="flex flex-wrap gap-2">
               {project.techs.map((tech) => (
                 <SkillBadge key={tech} tech={tech} color="indigo" className="text-xs px-2.5 py-1" />
@@ -179,13 +179,21 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           </div>
 
           {/* Enlaces de Acción */}
-          <div className="flex items-center gap-4 mt-auto pt-6 border-t border-[--border]">
+          <div className="flex flex-wrap items-center gap-4 mt-auto pt-6 border-t border-(--border)">
+            <a
+              href={`/folletos/${project.id}.pdf`}
+              download
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-(--border) text-sm font-semibold text-(--text-muted) hover:text-(--text-primary) hover:border-(--glow-cyan)/30 hover:bg-(--glow-cyan)/5 transition-all text-center"
+            >
+              <FileDown size={18} />
+              <span>Descargar folleto</span>
+            </a>
             {project.github && (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-[--border] text-sm font-semibold text-[--text-muted] hover:text-[--text-primary] hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all text-center"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-(--border) text-sm font-semibold text-(--text-muted) hover:text-(--text-primary) hover:border-(--glow-cyan)/30 hover:bg-(--glow-cyan)/5 transition-all text-center"
               >
                 <Github size={18} />
                 <span>Ver en GitHub</span>
@@ -196,7 +204,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[--accent-primary] to-[--accent-secondary] text-sm font-semibold text-white hover:opacity-95 transition-opacity text-center shadow-lg shadow-indigo-500/10"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-(--accent-primary) to-(--accent-secondary) text-sm font-semibold text-(--overlay-fg) hover:opacity-95 transition-opacity text-center shadow-lg shadow-(color:--glow-indigo)/10"
               >
                 <ExternalLink size={18} />
                 <span>Probar Demo</span>

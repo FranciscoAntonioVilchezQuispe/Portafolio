@@ -28,6 +28,9 @@ export const metadata: Metadata = {
     locale: 'es_PE',
     siteName: BRAND_NAME,
   },
+  twitter: {
+    card: 'summary_large_image',
+  },
   robots: { index: true, follow: true },
 }
 
@@ -42,7 +45,7 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-[--bg-primary] text-[--text-primary] antialiased min-h-screen flex flex-col font-sans">
+      <body className="bg-(--bg-primary) text-(--text-primary) antialiased min-h-screen flex flex-col font-sans">
         <Providers>
           <Navbar />
           <main className="flex-1">

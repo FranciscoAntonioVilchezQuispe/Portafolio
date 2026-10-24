@@ -25,9 +25,9 @@ const cardVariants = {
 }
 
 const statusColorMap = {
-  'Completado': 'text-green-400',
-  'En desarrollo': 'text-yellow-400',
-  'Mantenimiento': 'text-orange-400',
+  'Completado': 'text-(--success)',
+  'En desarrollo': 'text-(--warning)',
+  'Mantenimiento': 'text-(--caution)',
 } as const
 
 export function ProjectCard({ project, index, onClick }: ProjectCardProps) {
@@ -87,10 +87,10 @@ export function ProjectCard({ project, index, onClick }: ProjectCardProps) {
       )}
     >
       {/* Image container */}
-      <div className="relative h-48 w-full overflow-hidden bg-[--bg-surface]">
+      <div className="relative h-48 w-full overflow-hidden bg-(--bg-surface)">
         {showFallback ? (
-          <div className="h-full w-full bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 flex items-center justify-center">
-            <Code2 className="h-12 w-12 text-indigo-400/50" />
+          <div className="h-full w-full bg-gradient-to-br from-(--glow-indigo)/20 to-(--glow-cyan)/20 flex items-center justify-center">
+            <Code2 className="h-12 w-12 text-(--glow-indigo-soft)/50" />
           </div>
         ) : (
           <>
@@ -113,10 +113,10 @@ export function ProjectCard({ project, index, onClick }: ProjectCardProps) {
             />
             {/* Indicadores de galería */}
             {hasGallery && hovered && (
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20 bg-black/40 px-2 py-1 rounded-full backdrop-blur-xs">
-                <span className={cn("w-1.5 h-1.5 rounded-full transition-colors duration-300", currentImgIndex === -1 ? "bg-cyan-400 scale-125" : "bg-white/40")} />
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20 bg-(--overlay-bg)/40 px-2 py-1 rounded-full backdrop-blur-xs">
+                <span className={cn("w-1.5 h-1.5 rounded-full transition-colors duration-300", currentImgIndex === -1 ? "bg-(--glow-cyan-soft) scale-125" : "bg-(--overlay-fg)/40")} />
                 {project.images!.map((_, i) => (
-                  <span key={i} className={cn("w-1.5 h-1.5 rounded-full transition-colors duration-300", currentImgIndex === i ? "bg-cyan-400 scale-125" : "bg-white/40")} />
+                  <span key={i} className={cn("w-1.5 h-1.5 rounded-full transition-colors duration-300", currentImgIndex === i ? "bg-(--glow-cyan-soft) scale-125" : "bg-(--overlay-fg)/40")} />
                 ))}
               </div>
             )}
@@ -126,10 +126,10 @@ export function ProjectCard({ project, index, onClick }: ProjectCardProps) {
 
       {/* Content */}
       <div className="p-6 flex-1 flex flex-col">
-        <h3 className="text-xl font-semibold mb-2 text-[--text-primary] line-clamp-1">
+        <h3 className="text-xl font-semibold mb-2 text-(--text-primary) line-clamp-1">
           {project.title}
         </h3>
-        <p className="text-[--text-muted] text-sm mb-4 flex-1 line-clamp-3 leading-relaxed">
+        <p className="text-(--text-muted) text-sm mb-4 flex-1 line-clamp-3 leading-relaxed">
           {project.description}
         </p>
 
@@ -141,14 +141,14 @@ export function ProjectCard({ project, index, onClick }: ProjectCardProps) {
         </div>
 
         {/* Links & Status */}
-        <div className="flex items-center gap-4 mt-auto pt-4 border-t border-[--border]">
+        <div className="flex items-center gap-4 mt-auto pt-4 border-t border-(--border)">
           {project.github && (
             <a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-1.5 text-sm font-medium text-[--text-muted] hover:text-[--text-primary] transition-colors"
+              className="flex items-center gap-1.5 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors"
             >
               <Github size={16} />
               <span>GitHub</span>
@@ -160,7 +160,7 @@ export function ProjectCard({ project, index, onClick }: ProjectCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-1.5 text-sm font-medium text-[--text-muted] hover:text-[--text-primary] transition-colors"
+              className="flex items-center gap-1.5 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors"
             >
               <ExternalLink size={16} />
               <span>Demo</span>
@@ -169,7 +169,7 @@ export function ProjectCard({ project, index, onClick }: ProjectCardProps) {
 
           <span
             className={cn(
-              'ml-auto text-xs px-2 py-1 bg-[--bg-surface] rounded-md font-medium border border-[--border]',
+              'ml-auto text-xs px-2 py-1 bg-(--bg-surface) rounded-md font-medium border border-(--border)',
               statusColorMap[project.status]
             )}
           >

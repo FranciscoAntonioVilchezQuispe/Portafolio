@@ -22,7 +22,7 @@ export function SectionTitle({ title, subtitle, className }: SectionTitleProps) 
         {title}
       </h2>
       {subtitle && (
-        <p className="text-[--text-muted] text-lg max-w-2xl mx-auto">
+        <p className="text-(--text-muted) text-lg max-w-2xl mx-auto">
           {subtitle}
         </p>
       )}

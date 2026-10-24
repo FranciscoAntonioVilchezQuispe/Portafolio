@@ -22,7 +22,7 @@ const badgeVariants = {
 
 export function Skills() {
   return (
-    <section id="habilidades" className="py-24 bg-[--bg-surface]">
+    <section id="habilidades" className="py-24 bg-(--bg-surface)">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <SectionTitle
@@ -43,7 +43,7 @@ export function Skills() {
               variants={itemVariants}
               className="space-y-3"
             >
-              <h3 className="font-semibold text-[--text-primary] text-base">
+              <h3 className="font-semibold text-(--text-primary) text-base">
                 {category.name}
               </h3>
               <motion.div
