@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { X, ChevronLeft, ChevronRight, Check, ExternalLink, Code2, FileDown } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Check, ExternalLink, Code2, FileDown, ArrowLeft } from 'lucide-react'
 import { Github } from '@/components/ui/icons'
 import { SkillBadge } from '@/components/ui/SkillBadge'
+import { ProjectScope } from '@/components/ui/ProjectScope'
 import { cn } from '@/lib/utils'
-import type { Project } from '@/data/projects'
+import type { Project, ProjectModule } from '@/data/projects'
 
 interface ProjectModalProps {
   project: Project
@@ -31,15 +32,20 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   }, [])
 
   const handlePrev = () => {
+    setModuleView(null)
     setCurrentImgIndex((prev) => (prev === 0 ? imagesList.length - 1 : prev - 1))
   }
 
   const handleNext = () => {
+    setModuleView(null)
     setCurrentImgIndex((prev) => (prev === imagesList.length - 1 ? 0 : prev + 1))
   }
 
-  const isImgError = imgErrorMap[currentImgIndex] || false
-  const currentSrc = imagesList[currentImgIndex] || project.image
+  const [moduleView, setModuleView] = useState<ProjectModule | null>(null)
+
+  const isImgError = !moduleView && (imgErrorMap[currentImgIndex] || false)
+  const gallerySrc = imagesList[currentImgIndex] || project.image
+  const currentSrc = moduleView?.image ?? gallerySrc
 
   return (
     <div className="fixed inset-0 z-50 bg-(--overlay-bg)/75 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
@@ -74,11 +80,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             <div className="relative w-full h-full flex items-center justify-center p-4">
               <Image
                 src={currentSrc}
-                alt={`${project.title} screenshot ${currentImgIndex + 1}`}
+                alt={moduleView ? `${project.title} — módulo ${moduleView.name}` : `${project.title} screenshot ${currentImgIndex + 1}`}
                 fill
                 className="object-contain"
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 onError={() => {
+                  if (moduleView) return
                   // Si falla la de portada (thumb.png), y tenemos imágenes de galería secundarias en la lista,
                   // la removemos para que no se muestre rota y saltamos a la primera disponible.
                   if (currentSrc === project.image && imagesList.length > 1) {
@@ -91,6 +98,23 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 priority
                 unoptimized
               />
+            </div>
+          )}
+
+          {moduleView && (
+            <div className="absolute top-2 left-2 right-14 sm:top-4 sm:left-4 sm:right-16 z-20 flex items-center gap-2 min-w-0">
+              <button
+                type="button"
+                onClick={() => setModuleView(null)}
+                aria-label="Volver a la galería"
+                className="shrink-0 inline-flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-1.5 rounded-full bg-(--overlay-bg)/70 backdrop-blur-xs border border-(--overlay-fg)/10 text-xs text-(--overlay-fg) hover:border-(--glow-cyan)/40 transition-colors cursor-pointer"
+              >
+                <ArrowLeft size={12} />
+                <span className="hidden sm:inline">Volver a la galería</span>
+              </button>
+              <span className="truncate px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-(--overlay-bg)/70 backdrop-blur-xs border border-(--glow-cyan)/30 text-[11px] sm:text-xs font-semibold text-(--overlay-fg)">
+                Módulo: {moduleView.name}
+              </span>
             </div>
           )}
 
@@ -120,10 +144,10 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               {imagesList.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setCurrentImgIndex(idx)}
+                  onClick={() => { setModuleView(null); setCurrentImgIndex(idx) }}
                   className={cn(
                     "w-2 h-2 rounded-full transition-all cursor-pointer",
-                    currentImgIndex === idx ? "bg-(--glow-cyan-soft) scale-125" : "bg-(--overlay-fg)/30"
+                    !moduleView && currentImgIndex === idx ? "bg-(--glow-cyan-soft) scale-125" : "bg-(--overlay-fg)/30"
                   )}
                   aria-label={`Ver imagen ${idx + 1}`}
                 />
@@ -166,6 +190,15 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 ))}
               </ul>
             </div>
+          )}
+
+          {project.modules && project.modules.length > 0 && (
+            <ProjectScope
+              groups={project.modules}
+              onShowImage={setModuleView}
+              activeImage={moduleView?.image}
+              className="mb-6"
+            />
           )}
 
           {/* Stack Tecnológico */}

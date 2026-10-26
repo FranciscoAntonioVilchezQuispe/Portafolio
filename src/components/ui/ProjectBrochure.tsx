@@ -16,6 +16,8 @@ const cleanUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replac
 export function ProjectBrochure({ project, className }: ProjectBrochureProps) {
   const [cover, ...gallery] = project.images ?? []
   const extra = gallery.slice(0, 4)
+  const moduleShots = (project.modules ?? []).flatMap((g) => g.modules).filter((m) => m.image)
+  const moduleShotPages = Array.from({ length: Math.ceil(moduleShots.length / 6) }, (_, i) => moduleShots.slice(i * 6, i * 6 + 6))
 
   return (
     <article className={cn('light bg-(--bg-primary) text-(--text-primary) brochure', className)}>
@@ -32,7 +34,7 @@ export function ProjectBrochure({ project, className }: ProjectBrochureProps) {
         <div className="px-12 py-8 flex flex-col gap-7 flex-1">
           {cover && (
             <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-(--border)">
-              <Image src={cover} alt={`${project.title} — captura principal`} fill sizes="800px" className="object-cover" />
+              <Image src={cover} alt={`${project.title} — captura principal`} fill loading="eager" sizes="800px" className="object-cover" />
             </div>
           )}
 
@@ -64,7 +66,7 @@ export function ProjectBrochure({ project, className }: ProjectBrochureProps) {
           <div className="grid grid-cols-2 gap-4">
             {extra.map((src, i) => (
               <div key={src} className="relative w-full aspect-video rounded-xl overflow-hidden border border-(--border)">
-                <Image src={src} alt={`${project.title} — captura ${i + 2}`} fill sizes="400px" className="object-cover" />
+                <Image src={src} alt={`${project.title} — captura ${i + 2}`} fill loading="eager" sizes="400px" className="object-cover" />
               </div>
             ))}
           </div>
@@ -95,6 +97,63 @@ export function ProjectBrochure({ project, className }: ProjectBrochureProps) {
           </div>
         </footer>
       </section>
+
+      {project.modules && project.modules.length > 0 && (
+        <section className="brochure-page flex flex-col px-12 py-10 gap-6">
+          <div>
+            <p className="text-sm font-mono tracking-widest uppercase text-(--text-muted)">{project.title}</p>
+            <h2 className="text-2xl font-bold mt-2">
+              Alcance: {project.modules.reduce((sum, g) => sum + g.modules.length, 0)} módulos en {project.modules.length} áreas
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-6">
+            {project.modules.map((group) => (
+              <div key={group.area} className="flex flex-col gap-2">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-(--accent-primary) border-b border-(--border) pb-1.5">
+                  {group.area}
+                </h3>
+                <ul className="space-y-2">
+                  {group.modules.map((m) => (
+                    <li key={m.name} className="text-xs leading-snug">
+                      <span className="font-semibold">
+                        {m.name}
+                        {m.thirdParty && <span className="text-(--accent-secondary)"> *</span>}
+                      </span>
+                      <span className="block text-(--text-muted)">{m.description}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          {project.modules.some((g) => g.modules.some((m) => m.thirdParty)) && (
+            <p className="mt-auto text-xs text-(--text-muted)">
+              <span className="text-(--accent-secondary)">*</span> Módulo de terceros integrado y configurado
+            </p>
+          )}
+        </section>
+      )}
+
+      {moduleShotPages.map((shots, page) => (
+        <section key={page} className="brochure-page flex flex-col px-12 py-10 gap-6">
+          <div>
+            <p className="text-sm font-mono tracking-widest uppercase text-(--text-muted)">{project.title}</p>
+            <h2 className="text-2xl font-bold mt-2">
+              Módulos en funcionamiento{moduleShotPages.length > 1 ? ` (${page + 1}/${moduleShotPages.length})` : ''}
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+            {shots.map((m) => (
+              <figure key={m.name} className="flex flex-col gap-1.5">
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-(--border)">
+                  <Image src={m.image ?? ''} alt={`Módulo ${m.name}`} fill loading="eager" sizes="400px" className="object-cover object-top" />
+                </div>
+                <figcaption className="text-xs font-semibold">{m.name}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      ))}
     </article>
   )
 }

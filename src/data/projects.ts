@@ -1,5 +1,17 @@
 import imagesManifest from './images-manifest.json'
 
+export interface ProjectModule {
+  name: string
+  description: string
+  thirdParty?: boolean
+  image?: string
+}
+
+export interface ProjectModuleGroup {
+  area: string
+  modules: ProjectModule[]
+}
+
 export interface Project {
   id: string
   title: string
@@ -14,6 +26,7 @@ export interface Project {
   github?: string
   demo?: string
   featured: boolean
+  modules?: ProjectModuleGroup[]
 }
 
 const manifest = imagesManifest as Record<string, string[]>
@@ -44,7 +57,7 @@ export const projects: Project[] = [
     id: 'localizacion-odoo-erp',
     title: 'Ecosistema de Localización ERP (Odoo)',
     description:
-      'Módulos personalizados para extender la funcionalidad del ERP Odoo 19, enfocados en la localización tributaria peruana y automatización omnicanal integrando el chat nativo y WhatsApp (UltraMsg).',
+      'Odoo 19 adaptado a la normativa peruana: facturación electrónica, SIRE, detracciones, PLE, planillas y costeo de importaciones en 21 módulos, con envío de comprobantes por WhatsApp.',
     longDescription:
       'Suite de módulos altamente especializados diseñados para adaptar el ERP Odoo 19 a las exigencias fiscales y operativas del mercado peruano, además de automatizar la comunicación masiva con clientes. El sistema automatiza tareas clave como la consulta en tiempo real de padrones masivos de RUC y DNI directamente de la SUNAT e integra de forma nativa la mensajería de WhatsApp mediante la API de UltraMsg. Esto permite disparar avisos de cobranza automatizados, enviar facturas en formato PDF al instante tras su validación, y unificar las conversaciones de los clientes directamente dentro del chat nativo (Discuss) de Odoo, mejorando el flujo de soporte y ventas.',
     features: [
@@ -60,6 +73,59 @@ export const projects: Project[] = [
     category: ['erp', 'backend'],
     status: 'Completado',
     featured: true,
+    modules: [
+      {
+        area: 'Facturación electrónica',
+        modules: [
+          { name: 'Factura y boleta electrónica', description: 'Emisión de comprobantes electrónicos con envío a la SUNAT a través de Nubefact (PSE/OSE).', thirdParty: true, image: '/screenshots/localizacion-odoo-erp/modulos/facturas.png' },
+          { name: 'Catálogos SUNAT', description: 'Tablas oficiales de la SUNAT para la facturación electrónica.', thirdParty: true },
+          { name: 'Guías de remisión electrónicas', description: 'Guías de remisión remitente generadas desde los despachos de inventario y enviadas por Nubefact.', image: '/screenshots/localizacion-odoo-erp/modulos/guias.png' },
+          { name: 'Guía de remisión transportista', description: 'Emisión de guías del transportista con sus datos de vehículo y conductor.' },
+        ],
+      },
+      {
+        area: 'Tributación SUNAT',
+        modules: [
+          { name: 'SIRE', description: 'Consulta, comparación y conciliación de los comprobantes del SIRE con lo registrado en el ERP.', image: '/screenshots/localizacion-odoo-erp/modulos/sire-comparacion.png' },
+          { name: 'Detracciones', description: 'Códigos de detracción, provisiones y pagos masivos.', image: '/screenshots/localizacion-odoo-erp/modulos/detracciones.png' },
+          { name: 'Retenciones recibidas', description: 'Registro de los comprobantes de retención de IGV emitidos por clientes agentes de retención.' },
+          { name: 'PLE', description: 'Generación de los libros electrónicos del Programa de Libros Electrónicos.', image: '/screenshots/localizacion-odoo-erp/modulos/ple.png' },
+          { name: 'Tipo de cambio SUNAT', description: 'Tipo de cambio diario obtenido de la SUNAT y visible en la barra superior del sistema.', image: '/screenshots/localizacion-odoo-erp/2.png' },
+          { name: 'Consulta RUC y DNI', description: 'Autocompleta los datos del cliente o proveedor consultando la SUNAT.' },
+        ],
+      },
+      {
+        area: 'Contabilidad',
+        modules: [
+          { name: 'Asiento destino automático', description: 'Genera los asientos de destino de gastos según el plan contable peruano.' },
+          { name: 'Kit contable', description: 'Reportes financieros, activos y conciliaciones para Odoo Community.', thirdParty: true },
+          { name: 'Presupuestos', description: 'Control de presupuestos por cuenta y periodo.', thirdParty: true },
+        ],
+      },
+      {
+        area: 'Importaciones e inventario',
+        modules: [
+          { name: 'Costeo de importaciones', description: 'Prorratea fletes, seguros y gastos de importación en el costo real de cada producto.', image: '/screenshots/localizacion-odoo-erp/5.png' },
+          { name: 'Marcas de producto', description: 'Define marcas y las asocia a los productos.', image: '/screenshots/localizacion-odoo-erp/modulos/marcas.png' },
+        ],
+      },
+      {
+        area: 'RR.HH. y planillas',
+        modules: [
+          { name: 'Planilla', description: 'Planilla de remuneraciones peruana con renta de 5ta categoría, integrada con asistencias.', image: '/screenshots/localizacion-odoo-erp/modulos/renta-5ta.png' },
+          { name: 'PLAME', description: 'Generación de la Planilla Mensual de Pagos para la SUNAT.', image: '/screenshots/localizacion-odoo-erp/modulos/plame.png' },
+          { name: 'Asistencia biométrica', description: 'Control de asistencia con relojes ZKTeco, en conexión directa o envío a la nube.', image: '/screenshots/localizacion-odoo-erp/modulos/biometrico.png' },
+        ],
+      },
+      {
+        area: 'Ventas y documentos',
+        modules: [
+          { name: 'Cartera de clientes por vendedor', description: 'Cada vendedor ve solo los clientes que tiene asignados.' },
+          { name: 'Plantillas de impresión', description: 'Diseños propios para cotizaciones, facturas y notas.', image: '/screenshots/localizacion-odoo-erp/modulos/plantillas.png' },
+          { name: 'Personalizaciones de localización', description: 'Ajustes generales de Odoo para el mercado peruano.' },
+        ],
+      },
+    ],
   },
   {
     id: 'factuapp-android',
